@@ -8,8 +8,7 @@ int main(int argc, char const *argv[])
 {	
 	Jeu* jeu = initialize_jeu();
 	char * s = malloc(4 * sizeof(char));
-	int test = 1;
-	while(scanf("%s", s)){
+	while(scanf("%s", s) == 1){
 		add(jeu, s);
 	}
 	print_plateau(jeu->plateau);
