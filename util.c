@@ -73,23 +73,35 @@ char color_itoc(int i){
 	}
 }
 
-int * get_tile(int ** plateau, char c, char l){
-	return &plateau[(int)(c - 'a')][(int)(l - '1')];
+Tuile * get_tuile(Tuile *** plateau, char c, char l){
+	return plateau[(int)(c - 'a')][(int)(l - '1')];
 }
 
-void print_plateau(int ** plateau){
+void print_plateau(Tuile *** plateau){
 	printf("  A  B  C  D  E  F  G  H\n");
 	printf(" +--+--+--+--+--+--+--+--+\n");
 	for(int i = 0; i < 8; i++){
 		printf("%d|", i + 1);
 		for(int j = 0; j < 8; j++){
-			int p = plateau[j][i];
+			int p = plateau[j][i]->piece;
 			printf("%c%c|", piece_itoc(p & 0b00111), color_itoc((p & 0b11000) >> 3));
 		}
 		printf("\n +--+--+--+--+--+--+--+--+\n");
 	}
 }
 
-int ** get_piece_table(int **** pieces, int piece){
+void print_piece(int piece){
+	printf("%c%c\n", piece_itoc(piece & 0b00111), color_itoc((piece & 0b11000) >> 3));
+}
+
+void print_menace(Tuile * t){
+	Menace * m = t->menace;
+	while(m != NULL){
+		print_piece(m->attaque->piece);
+		m = m->next;
+	}
+}
+
+Tuile ** get_piece_table(Tuile **** pieces, int piece){
 	return pieces[(piece & 0b11000) >> 3][piece & 0b00111];
 }

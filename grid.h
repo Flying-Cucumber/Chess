@@ -13,14 +13,17 @@
 
 #define VIDE 0
 
+#include "util.h"
+
 typedef struct Jeu{
-	int ** plateau;
-	int **** pieces;
+	Tuile *** plateau;
+	Tuile **** pieces;
 } Jeu;
 
 Jeu * initialize_jeu();
-void initialize_pieces(int **** pieces, int color);
+void initialize_pieces(Tuile **** pieces, int color);
 void add(Jeu * j, char* c);
 void move(Jeu * j, char* c);
+void add_menace(Tuile * cible, Tuile * attaque);
 
 #endif
